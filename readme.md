@@ -4,12 +4,12 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [You](https://github.com/snyderitis)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [Snyderitis](https://github.com/snyderitis)  
+Hardware Supported: The kicad files for the PCB are in the "kicad" folder. 
+Hardware Availability: I used WS2812B leds with 0.1uF SMD capacitors and a teensy. In the future it would be wiser to use an Arduino Pro mini as they're essentially the same and have the same pin layout.
 
 Make example for this keyboard (after setting up your build environment):
 
     make 20keyrgb:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.# rgb_keypad
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
