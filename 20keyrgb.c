@@ -117,6 +117,7 @@ void my_rainbow_swirl(void)
     {
       float cCol = 1.5 - col;
       float cRow = 2 - row;
+      //negative or positive within a tan switches rotation direction
       double deg = atan(-cRow / cCol) * 180 / PI;
       //These make some pretty cool stuff
       //double deg = atan(cCol/cRow) * 180 / PI;
