@@ -22,16 +22,24 @@ void my_rainbow_lights(void);
 void rgb_lights(int);
 void my_random_lights(void);
 void disp_rgb_num(int);
+void rgb_react(int, int);
+void update_rand_react(void);
+void my_rainbow_swirl(void);
+bool check_change_layer(void);
 
 #define OFF_MODE 0
 #define RAINBOW_MODE 1
 #define RANDOM_MODE 2
+#define RAND_REACTIVE_MODE 3
+#define RNBW_SWRL_MODE 4
 
 int max_rgb_val;
 int light_mode; //what animation
 int light_speed; //spped of update for rainbow
 int rainbow_freq; //frequency of colors for rainbow
 int inc_val;
+int light_val[RGBLED_NUM];
+int light_hue[RGBLED_NUM];
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments

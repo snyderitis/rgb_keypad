@@ -19,7 +19,9 @@ enum my_keycodes {
   MY_RGB_RBW = SAFE_RANGE,
   MY_RGB_RND,
   RGB_VAL_INC,
-  RGB_VAL_DEC
+  RGB_VAL_DEC,
+  MY_RGB_RND_RCT,
+  MY_RGB_SWRL
 
 };
 
@@ -36,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_A,  KC_A, KC_A,
   KC_A,    KC_A, KC_A, KC_A,
   KC_A,    KC_A,   KC_A, KC_A,
-  RGB_VAL_INC, RGB_VAL_DEC,   KC_A,   KC_A,
-  MY_RGB_RND, MY_RGB_RBW, KC_A, TO(0)
+  RGB_VAL_INC, RGB_VAL_DEC,  MY_RGB_SWRL,   KC_A,
+  MY_RGB_RND, MY_RGB_RBW, MY_RGB_RND_RCT, TO(0)
 ),
 
 
@@ -84,8 +86,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }break;
   case MY_RGB_RND:
     if (record->event.pressed) {
-      if (light_mode != RANDOM_MODE)
+      if (light_mode != RANDOM_MODE) {
+        for (int i = 0; i < RGBLED_NUM; i++) {
+          light_hue[i] = 0;
+          light_val[i] = 0;
+        }
         light_mode = RANDOM_MODE;
+      }
       else
         light_mode = OFF_MODE;
     }break;
@@ -101,7 +108,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (max_rgb_val < 0)
         max_rgb_val = 0;
     }break;
+  case MY_RGB_RND_RCT:
+    if (record->event.pressed) {
+      if (light_mode != RAND_REACTIVE_MODE)
+        light_mode = RAND_REACTIVE_MODE;
+      else
+        light_mode = OFF_MODE;
+    }break;
+  case MY_RGB_SWRL:
+    if (record->event.pressed) {
+      if (light_mode != RNBW_SWRL_MODE)
+        light_mode = RNBW_SWRL_MODE;
+      else
+        light_mode = OFF_MODE;
+    }
   }
+  if (light_mode == RAND_REACTIVE_MODE && (record->event.key.row != 4 || record->event.key.col != 3)) {
+    //only for rand reactive mode
+    if(record->event.pressed)
+      rgb_react(record->event.key.row, record->event.key.col);
+  }
+  
   return true;
 }
 
