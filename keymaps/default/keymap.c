@@ -77,14 +77,18 @@ void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode)
   {
-  case MY_RGB_RBW:
+
+
+  case MY_RGB_RBW: //rainbows!!
     if (record->event.pressed) {
       if (light_mode != RAINBOW_MODE)
         light_mode = RAINBOW_MODE;
       else
         light_mode = OFF_MODE;
     }break;
-  case MY_RGB_RND:
+
+
+  case MY_RGB_RND: //random keys light up and fade
     if (record->event.pressed) {
       if (light_mode != RANDOM_MODE) {
         for (int i = 0; i < RGBLED_NUM; i++) {
@@ -96,26 +100,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       else
         light_mode = OFF_MODE;
     }break;
-  case RGB_VAL_INC:
+
+
+  case RGB_VAL_INC: //increase brightness
     if (record->event.pressed) {
       max_rgb_val+= inc_val;
       if (max_rgb_val > 255)
         max_rgb_val = 255;
     }break;
-  case RGB_VAL_DEC:
+
+
+  case RGB_VAL_DEC: //decrease brightness
     if (record->event.pressed) {
       max_rgb_val-= inc_val;
       if (max_rgb_val < 0)
         max_rgb_val = 0;
     }break;
-  case MY_RGB_RND_RCT:
+
+
+  case MY_RGB_RND_RCT: //pressing key lights it up
     if (record->event.pressed) {
       if (light_mode != RAND_REACTIVE_MODE)
         light_mode = RAND_REACTIVE_MODE;
       else
         light_mode = OFF_MODE;
     }break;
-  case MY_RGB_SWRL:
+
+
+  case MY_RGB_SWRL: //swirls!!
     if (record->event.pressed) {
       if (light_mode != RNBW_SWRL_MODE)
         light_mode = RNBW_SWRL_MODE;
@@ -123,6 +135,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         light_mode = OFF_MODE;
     }
   }
+
+
   if (light_mode == RAND_REACTIVE_MODE && (record->event.key.row != 4 || record->event.key.col != 3)) {
     //only for rand reactive mode
     if(record->event.pressed)
